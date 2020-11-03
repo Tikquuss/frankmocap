@@ -1,5 +1,7 @@
 # Copyright (c) Facebook, Inc. and its affiliates.
 
+from configs.utils import config_file
+
 import argparse
 
 class DemoOptions():
@@ -56,9 +58,11 @@ class DemoOptions():
         parser.add_argument("--renderer_type", type=str, default="opengl", 
             choices=['pytorch3d', 'opendr', 'opengl_gui', 'opengl'], help="type of renderer to use")
 
+        parser.add_argument("--config_file", type=str, default="", help="")
+
         self.parser = parser
     
 
     def parse(self):
-        self.opt = self.parser.parse_args()
+        self.opt = config_file(self.parser.parse_args())
         return self.opt
