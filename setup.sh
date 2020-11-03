@@ -6,15 +6,17 @@
 
 set -e
 
-# The basic installation
-sudo apt-get install ffmpeg
-pip install -r docs/requirements.txt
+# a || b ==> try { a } except { b }, thanks https://stackoverflow.com/questions/6961389/exception-handling-in-shell-scripting
 
-# Install Detectron2 (for hand module)
-python -m pip install detectron2 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cu101/torch1.6/index.html
+echo "===== The basic installation ====="
+sudo apt-get install ffmpeg || echo "WARNING"
+pip install -r docs/requirements.txt || echo "WARNING"
 
-# Install pytorch3d (optional, for pytorch3d renderering)
-pip install pytorch3d
+echo "===== Install Detectron2 (for hand module) ====="
+python -m pip install detectron2 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cu101/torch1.6/index.html || echo "WARNING"
 
-# Install other third-party libraries + download pretrained models and sample data
+echo "===== Install pytorch3d (optional, for pytorch3d renderering) ====="
+pip install pytorch3d || echo "WARNING"
+ 
+echo "===== Install other third-party libraries + download pretrained models and sample data ====="
 sh scripts/install_frankmocap.sh
